@@ -12,5 +12,12 @@ phases:
     - npm install --silent --no-progress
   build:
     commands:
-    - serverless deploy
-    - echo im done
+    - mkdir -p target/stg
+    - mkdir target/prod
+    - serverless package --package target/stg --stage stg -v -r us-east-2
+    - serverless package --package target/prod --stage prod -v -r us-east-2
+    
+artifacts:
+    files:
+    - target/**/*
+    - serverless.yml
