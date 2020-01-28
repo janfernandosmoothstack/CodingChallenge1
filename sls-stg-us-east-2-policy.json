@@ -104,13 +104,6 @@
     },
     {
       "Effect": "Allow",
-      "Action": "kinesis:*",
-      "Resource": [
-        "arn:aws:kinesis:*:*:stream/sls-stg-us-east-2"
-      ]
-    },
-    {
-      "Effect": "Allow",
       "Action": [
         "iam:GetRole",
         "iam:CreateRole",
