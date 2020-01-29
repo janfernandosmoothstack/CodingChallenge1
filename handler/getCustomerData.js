@@ -11,7 +11,7 @@ function response(statusCode, message) {
     };
 }
 
-module.exports.getCustomer = (event, context, callback) => {
+exports.getCustomer = (event, callback) => {
     const customerId = event.pathParameters.customerId;
 
     const params = {
@@ -24,10 +24,13 @@ module.exports.getCustomer = (event, context, callback) => {
     return documentClient.get(params).promise()
         .then(res => {
             if(res.Item) {
-                callback(null, response(200, res.Item))  
+                return response(200, res.Item); 
             } else {
-                callback(null, response(404, {error: 'Record not found'}))
+                return response(404, {error: 'Record not found'});
             }
         })
-        .catch(err => callback(null, response(err.statusCode, err)));
+        .catch(err => {
+            //callback(null, response(err.statusCode, err))
+            return response(err.statusCode, err)
+        });
 }
